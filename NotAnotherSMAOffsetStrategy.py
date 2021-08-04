@@ -20,7 +20,7 @@ import technical.indicators as ftt
 buy_params = {
       "base_nb_candles_buy": 14,
       "ewo_high": 2.327,
-      "ewo_low": -19.988,
+      "ewo_low": -20.988,
       "low_offset": 0.975,
       "rsi_buy": 69
     }
@@ -36,7 +36,7 @@ def EWO(dataframe, ema_length=5, ema2_length=35):
     df = dataframe.copy()
     ema1 = ta.EMA(df, timeperiod=ema_length)
     ema2 = ta.EMA(df, timeperiod=ema2_length)
-    emadif = (ema1 - ema2) / df['close'] * 100
+    emadif = (ema1 - ema2) / df['low'] * 100
     return emadif
 
 
@@ -107,14 +107,7 @@ class NotAnotherSMAOffsetStrategy(IStrategy):
             'ma_sell': {'color': 'orange'},
         },
     }
-    use_custom_stoploss = False
-    def custom_stoploss(self, pair: str, trade: 'Trade', current_time: datetime,
-                        current_rate: float, current_profit: float, **kwargs) -> float:
 
-        if current_profit < -0.05 and current_time - timedelta(minutes=720) > trade.open_date_utc:
-            return -0.01
-
-        return -0.99
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
