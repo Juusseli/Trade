@@ -53,7 +53,7 @@ class NotAnotherSMAOffsetStrategy(IStrategy):
     }
 
     # Stoploss:
-    stoploss = -0.32
+    stoploss = -0.35
 
     # SMAOffset
     base_nb_candles_buy = IntParameter(
@@ -107,7 +107,19 @@ class NotAnotherSMAOffsetStrategy(IStrategy):
             'ma_sell': {'color': 'orange'},
         },
     }
+    def confirm_trade_exit(self, pair: str, trade: Trade, order_type: str, amount: float,
+                           rate: float, time_in_force: str, sell_reason: str,
+                           current_time: datetime, **kwargs) -> bool:
 
+        dataframe, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
+        last_candle = dataframe.iloc[-1]
+
+
+        if (last_candle is not None):
+            if (sell_reason in ['sell_signal']):
+                if (last_candle['hma_50']*1.149 > last_candle['ema_100']) and (last_candle['close'] < last_candle['ema_100']*0.951): #*1.2
+                    return False
+        return True
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
@@ -120,7 +132,7 @@ class NotAnotherSMAOffsetStrategy(IStrategy):
             dataframe[f'ma_sell_{val}'] = ta.EMA(dataframe, timeperiod=val)
         
         dataframe['hma_50'] = qtpylib.hull_moving_average(dataframe['close'], window=50)
-        
+        dataframe['ema_100'] = ta.EMA(dataframe, timeperiod=100)          
 
         dataframe['sma_9'] = ta.SMA(dataframe, timeperiod=9)
         # Elliot
