@@ -188,7 +188,7 @@ class NotAnotherSMAOffsetStrategy(IStrategy):
         conditions = []
 
         conditions.append(
-            (   (dataframe['close']>dataframe['hma_50'])&
+            (   (dataframe['close']>dataframe['sma_9'])&
                 (dataframe['close'] > (dataframe[f'ma_sell_{self.base_nb_candles_sell.value}'] * self.high_offset_2.value)) &
                 (dataframe['rsi']>50)&
                 (dataframe['volume'] > 0)&
