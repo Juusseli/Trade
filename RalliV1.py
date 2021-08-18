@@ -25,7 +25,7 @@ buy_params = {
       "ewo_low": -20.988,
       "low_offset": 0.975,
       "low_offset_2": 0.955,
-      "rsi_buy": 50,
+      "rsi_buy": 60,
       "rsi_buy_2": 40
     }
 
