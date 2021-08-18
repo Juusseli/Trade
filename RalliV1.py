@@ -26,7 +26,7 @@ buy_params = {
       "low_offset": 0.975,
       "low_offset_2": 0.955,
       "rsi_buy": 60,
-      "rsi_buy_2": 40
+      "rsi_buy_2": 45
     }
 
 # Sell hyperspace params:
