@@ -187,7 +187,7 @@ class NotAnotherSMAOffSetStrategy_V2(IStrategy):
         dataframe.loc[
         (
                 (dataframe['vol_base']>-96)&
-                (dataframe['vol_base']> -25)&
+                (dataframe['vol_base']> -20)&
                 (dataframe['rsi_fast'] <35)&
                 (dataframe['close'] < (dataframe[f'ma_buy_{self.base_nb_candles_buy.value}'] * self.low_offset.value)) &
                 (dataframe['EWO'] > self.ewo_high.value) &
