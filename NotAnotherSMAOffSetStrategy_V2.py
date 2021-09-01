@@ -17,6 +17,13 @@ import technical.indicators as ftt
 
 # @Rallipanos
 
+
+
+#########################################################################################################################
+##   Do not run backtesting over servicebreaks. It gives bad result. Test timeranges that does not have servicebreaks!!!!
+#########################################################################################################################
+
+
 # Buy hyperspace params:
 buy_params = {
       "base_nb_candles_buy": 14,
